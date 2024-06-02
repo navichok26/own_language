@@ -25,8 +25,7 @@ class StringExprAST(ExprAST):
 
     def evaluate(self):
         print(self.val, end='')
-        return 0.0
-
+        return ""
 class VariableExprAST(ExprAST):
     def __init__(self, name):
         self.name = name
@@ -34,9 +33,8 @@ class VariableExprAST(ExprAST):
     def evaluate(self):
         if self.name in named_values:
             var = named_values[self.name]
-            if var['type'] == 'string':
-                print(var['str_val'], end='')
-                return 0.0
+            if var['type'] == 'array':
+                raise RuntimeError(f"Array {self.name} used without index")
             return var['value']
         raise RuntimeError(f"Unknown variable name: {self.name}")
 
@@ -45,17 +43,22 @@ class BinaryExprAST(ExprAST):
         self.op = op
         self.lhs = lhs
         self.rhs = rhs
-        # print("binary op:", self.op, chr(self.op))
+        # print("binary op:", self.op, chr(45))
 
     def evaluate(self):
         left_val = self.lhs.evaluate()
         right_val = self.rhs.evaluate()
-
-        return {
+        
+        if self.op == ord('/'):
+            if right_val == 0:
+                raise ZeroDivisionError("Division by zero")
+        # print(left_val, right_val, self.op)
+        if self.op == ord('/'):
+            return left_val / right_val
+        res = {
             ord('+'): left_val + right_val,
             ord('-'): left_val - right_val,
             ord('*'): left_val * right_val,
-            ord('/'): left_val / right_val,
             TOKEN_EQ: left_val == right_val,
             TOKEN_NE: left_val != right_val,
             TOKEN_LT: left_val < right_val,
@@ -63,8 +66,9 @@ class BinaryExprAST(ExprAST):
             TOKEN_GT: left_val > right_val,
             TOKEN_GE: left_val >= right_val,
             TOKEN_AND: left_val and right_val,
-            TOKEN_OR: left_val or right_val
+            TOKEN_OR: left_val or right_val,
         }[self.op]
+        return res
 
 class IfExprAST(ExprAST):
     def __init__(self, cond, then_expr, else_expr):
@@ -167,6 +171,7 @@ class PrintExprAST(ExprAST):
 
     def evaluate(self):
         result = self.expr.evaluate()
+        # print("result: ", result)
         print(result, end='')
         return result
 
@@ -229,6 +234,7 @@ def parse_paren_expr():
     v = parse_expression()
     if not v:
         return None
+    # print("tok2", cur_tok)
     if cur_tok != ord(')'):
         return None
     get_next_token()
@@ -427,11 +433,12 @@ def parse_bool_decl():
     if cur_tok != ord('='):
         raise RuntimeError("Expected '=' after identifier")
     get_next_token()
+    # print("tok", cur_tok)
+
     expr = parse_expression()
     if not expr:
         return None
-    named_values[id_name] = {'type': 'bool', 'value': expr.evaluate()}
-    return None
+    return VariableDeclarationExprAST(id_name, expr)
 
 def handle_file(filename):
     global lexer
@@ -444,6 +451,7 @@ def handle_file(filename):
             if cur_tok == ord(';'):
                 continue
             ast = None
+            # print(cur_tok)
             if cur_tok == TOKEN_INT:
                 ast = parse_int_decl()
             elif cur_tok == TOKEN_BOOL:

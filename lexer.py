@@ -115,10 +115,49 @@ class Lexer:
         if not self.last_char:
             return TOKEN_EOF
 
+        if self.last_char == '=':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '=':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_EQ
+            return TOKEN_ASSIGN
+
+        if self.last_char == '!':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '=':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_NE
+
+        if self.last_char == '<':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '=':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_LE
+            return TOKEN_LT
+
+        if self.last_char == '>':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '=':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_GE
+            return TOKEN_GT
+
+        if self.last_char == '&':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '&':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_AND
+
+        if self.last_char == '|':
+            self.last_char = self.input_stream.read(1)
+            if self.last_char == '|':
+                self.last_char = self.input_stream.read(1)
+                return TOKEN_OR
+    
         this_char = self.last_char
         self.last_char = self.input_stream.read(1)
 
-        return ord(this_char) if this_char in '+-*/(){}[],' else {
+        res = ord(this_char) if this_char in '+-*/(){}[],' else {
             '=': TOKEN_ASSIGN,
             ';': TOKEN_SEMI,
             '<': TOKEN_LT,
@@ -127,3 +166,6 @@ class Lexer:
             '&': TOKEN_AND,
             '|': TOKEN_OR
         }.get(this_char, ord(this_char))
+
+        # print("gettok: ", res, this_char)
+        return res

@@ -1,0 +1,102 @@
+# Проверка арифметических операций
+
+# Объявление и инициализация переменных
+
+int a = 10;
+int b = 5;
+
+# Сложение
+
+int sum = a + b;
+#print "Add: ";
+print sum; # Ожидаемый результат: 15
+endl;
+
+# Вычитание
+
+int difference = a - b;
+#print "Sub: ";
+print difference; # Ожидаемый результат: 5
+endl;
+
+# Умножение
+
+int product = a * b;
+#print "Mul: ";
+print product; # Ожидаемый результат: 50
+endl;
+
+# Деление
+
+int quotient = a / b;
+#print "Div: ";
+print quotient; # Ожидаемый результат: 2
+endl;
+
+# Проверка операций сравнения
+
+# Равно
+
+bool isEqual = (a == b);
+print "isEqual (10 == 5): ";
+print isEqual; # Ожидаемый результат: 0 (false)
+endl;
+
+# Не равно
+
+bool isNotEqual = (a != b);
+print "isNotEqual (10 != 5): ";
+print isNotEqual; # Ожидаемый результат: 1 (true)
+endl;
+
+# Меньше
+
+bool isLess = (a < b);
+print "isLess (10 < 5): ";
+print isLess; # Ожидаемый результат: 0 (false)
+endl;
+
+# Меньше или равно
+
+bool isLessOrEqual = (a <= b);
+print "isLessOrEqual (10 <= 5): ";
+print isLessOrEqual; # Ожидаемый результат: 0 (false)
+endl;
+
+# Больше
+
+bool isGreater = (a > b);
+print "isGreater (10 > 5): ";
+print isGreater; # Ожидаемый результат: 1 (true)
+endl;
+
+# Больше или равно
+
+bool isGreaterOrEqual = (a >= b);
+print "isGreaterOrEqual (10 >= 5): ";
+print isGreaterOrEqual; # Ожидаемый результат: 1 (true)
+endl;
+
+# Проверка логических операций
+
+bool trueValue = true;
+bool falseValue = false;
+
+# Логическое И
+
+bool andResult = trueValue && falseValue;
+print "andResult (true && false): ";
+print andResult; # Ожидаемый результат: 0 (false)
+endl;
+
+# Логическое ИЛИ
+
+bool orResult = trueValue || falseValue;
+print "orResult (true || false): ";
+print orResult; # Ожидаемый результат: 1 (true)
+endl;
+
+# Проверка вывода строки
+
+print "print: Hello, world!";
+endl;
