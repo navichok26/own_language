@@ -17,7 +17,7 @@ class BooleanExprAST(ExprAST):
         self.val = val
 
     def evaluate(self):
-        return 1.0 if self.val else 0.0
+        return True if self.val else False
 
 class StringExprAST(ExprAST):
     def __init__(self, val):

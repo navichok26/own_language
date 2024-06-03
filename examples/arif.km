@@ -6,54 +6,54 @@
 
 
 цел sum = a + b;
-вывод "Add: ";
+вывод "Сложение: ";
 вывод sum;
 конецстр;
 
 цел difference = a - b;
-вывод "Sub: ";
+вывод "Вычитание: ";
 вывод difference; 
 конецстр;
 
 цел product = a * b;
-вывод "Mul: ";
+вывод "Умножение: ";
 вывод product;
 конецстр;
 
 цел quotient = a / b;
-#вывод "Div: ";
+вывод "Деление: ";
 вывод quotient;
 конецстр;
 
 
 бул isEqual = (a == b);
-вывод "isEqual (10 == 5): ";
+вывод "(10 == 5): ";
 вывод isEqual; 
 конецстр;
 
 
 бул isNotEqual = (a != b);
-вывод "isNotEqual (10 != 5): ";
+вывод "(10 != 5): ";
 вывод isNotEqual;
 конецстр;
 
 бул isLess = (a < b);
-вывод "isLess (10 < 5): ";
+вывод "(10 < 5): ";
 вывод isLess; 
 конецстр;
 
 бул isLessOrEqual = (a <= b);
-вывод "isLessOrEqual (10 <= 5): ";
+вывод "(10 <= 5): ";
 вывод isLessOrEqual;
 конецстр;
 
 бул isGreater = (a > b);
-вывод "isGreater (10 > 5): ";
+вывод "(10 > 5): ";
 вывод isGreater; 
 конецстр;
 
 бул isGreaterOrEqual = (a >= b);
-вывод "isGreaterOrEqual (10 >= 5): ";
+вывод "(10 >= 5): ";
 вывод isGreaterOrEqual;
 конецстр;
 
@@ -61,12 +61,12 @@
 бул falseValue = false;
 
 бул andResult = trueValue && falseValue;
-вывод "andResult (true && false): ";
+вывод "(true && false): ";
 вывод andResult; 
 конецстр;
 
 бул orResult = trueValue || falseValue;
-вывод "orResult (true || false): ";
+вывод "(true || false): ";
 вывод orResult; 
 конецстр;
 

@@ -166,5 +166,4 @@ class Lexer:
             '|': TOKEN_OR
         }.get(this_char, ord(this_char))
 
-        # print("gettok: ", res, this_char)
         return res
