@@ -1,102 +1,75 @@
-# Проверка арифметических операций
 
-# Объявление и инициализация переменных
 
-int a = 10;
-int b = 5;
+цел a = 10;
+цел b = 5;
 
-# Сложение
 
-int sum = a + b;
-#print "Add: ";
-print sum; # Ожидаемый результат: 15
-endl;
 
-# Вычитание
+цел sum = a + b;
+вывод "Add: ";
+вывод sum;
+конецстр;
 
-int difference = a - b;
-#print "Sub: ";
-print difference; # Ожидаемый результат: 5
-endl;
+цел difference = a - b;
+вывод "Sub: ";
+вывод difference; 
+конецстр;
 
-# Умножение
+цел product = a * b;
+вывод "Mul: ";
+вывод product;
+конецстр;
 
-int product = a * b;
-#print "Mul: ";
-print product; # Ожидаемый результат: 50
-endl;
+цел quotient = a / b;
+#вывод "Div: ";
+вывод quotient;
+конецстр;
 
-# Деление
 
-int quotient = a / b;
-#print "Div: ";
-print quotient; # Ожидаемый результат: 2
-endl;
+бул isEqual = (a == b);
+вывод "isEqual (10 == 5): ";
+вывод isEqual; 
+конецстр;
 
-# Проверка операций сравнения
 
-# Равно
+бул isNotEqual = (a != b);
+вывод "isNotEqual (10 != 5): ";
+вывод isNotEqual;
+конецстр;
 
-bool isEqual = (a == b);
-print "isEqual (10 == 5): ";
-print isEqual; # Ожидаемый результат: 0 (false)
-endl;
+бул isLess = (a < b);
+вывод "isLess (10 < 5): ";
+вывод isLess; 
+конецстр;
 
-# Не равно
+бул isLessOrEqual = (a <= b);
+вывод "isLessOrEqual (10 <= 5): ";
+вывод isLessOrEqual;
+конецстр;
 
-bool isNotEqual = (a != b);
-print "isNotEqual (10 != 5): ";
-print isNotEqual; # Ожидаемый результат: 1 (true)
-endl;
+бул isGreater = (a > b);
+вывод "isGreater (10 > 5): ";
+вывод isGreater; 
+конецстр;
 
-# Меньше
+бул isGreaterOrEqual = (a >= b);
+вывод "isGreaterOrEqual (10 >= 5): ";
+вывод isGreaterOrEqual;
+конецстр;
 
-bool isLess = (a < b);
-print "isLess (10 < 5): ";
-print isLess; # Ожидаемый результат: 0 (false)
-endl;
+бул trueValue = true;
+бул falseValue = false;
 
-# Меньше или равно
+бул andResult = trueValue && falseValue;
+вывод "andResult (true && false): ";
+вывод andResult; 
+конецстр;
 
-bool isLessOrEqual = (a <= b);
-print "isLessOrEqual (10 <= 5): ";
-print isLessOrEqual; # Ожидаемый результат: 0 (false)
-endl;
+бул orResult = trueValue || falseValue;
+вывод "orResult (true || false): ";
+вывод orResult; 
+конецстр;
 
-# Больше
 
-bool isGreater = (a > b);
-print "isGreater (10 > 5): ";
-print isGreater; # Ожидаемый результат: 1 (true)
-endl;
-
-# Больше или равно
-
-bool isGreaterOrEqual = (a >= b);
-print "isGreaterOrEqual (10 >= 5): ";
-print isGreaterOrEqual; # Ожидаемый результат: 1 (true)
-endl;
-
-# Проверка логических операций
-
-bool trueValue = true;
-bool falseValue = false;
-
-# Логическое И
-
-bool andResult = trueValue && falseValue;
-print "andResult (true && false): ";
-print andResult; # Ожидаемый результат: 0 (false)
-endl;
-
-# Логическое ИЛИ
-
-bool orResult = trueValue || falseValue;
-print "orResult (true || false): ";
-print orResult; # Ожидаемый результат: 1 (true)
-endl;
-
-# Проверка вывода строки
-
-print "print: Hello, world!";
-endl;
+вывод "вывод: Hello, world!";
+конецстр;

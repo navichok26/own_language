@@ -61,23 +61,22 @@ class Lexer:
             if self.last_char:
                 return self.gettok()
 
-        if re.match(r'[a-zA-Z]', self.last_char):
+        if re.match(r'[a-zA-Zа-яА-Я]', self.last_char):
             self.identifier_str = self.last_char
             while True:
                 self.last_char = self.input_stream.read(1)
-                if not re.match(r'[a-zA-Z0-9_]', self.last_char):
+                if not re.match(r'[a-zA-Z0-9а-яА-Я_]', self.last_char):
                     break
                 self.identifier_str += self.last_char
-
-            if self.identifier_str == "int":
+            if self.identifier_str == "цел":
                 return TOKEN_INT
-            if self.identifier_str == "double":
+            if self.identifier_str == "вещ":
                 return TOKEN_DOUBLE
-            if self.identifier_str == "bool":
+            if self.identifier_str == "бул":
                 return TOKEN_BOOL
-            if self.identifier_str == "if":
+            if self.identifier_str == "если":
                 return TOKEN_IF
-            if self.identifier_str == "else":
+            if self.identifier_str == "иначе":
                 return TOKEN_ELSE
             if self.identifier_str == "true":
                 self.bool_val = True
@@ -85,13 +84,13 @@ class Lexer:
             if self.identifier_str == "false":
                 self.bool_val = False
                 return TOKEN_FALSE
-            if self.identifier_str == "while":
+            if self.identifier_str == "нц_пока":
                 return TOKEN_WHILE
-            if self.identifier_str == "print":
+            if self.identifier_str == "вывод":
                 return TOKEN_PRINT
-            if self.identifier_str == "endl":
+            if self.identifier_str == "конецстр":
                 return TOKEN_ENDL
-            if self.identifier_str == "input":
+            if self.identifier_str == "ввод":
                 return TOKEN_INPUT
             return TOKEN_IDENTIFIER
 
