@@ -12,12 +12,18 @@ class NumberExprAST(ExprAST):
     def evaluate(self):
         return self.val
 
+    def __repr__(self) -> str:
+        return str(self.val)
+
 class BooleanExprAST(ExprAST):
     def __init__(self, val):
         self.val = val
 
     def evaluate(self):
         return True if self.val else False
+
+    def __repr__(self) -> str:
+        return str(True if self.val else False)
 
 class StringExprAST(ExprAST):
     def __init__(self, val):
@@ -26,6 +32,10 @@ class StringExprAST(ExprAST):
     def evaluate(self):
         print(self.val, end='')
         return ""
+
+    def __repr__(self) -> str:
+        return str(self.val)
+
 class VariableExprAST(ExprAST):
     def __init__(self, name):
         self.name = name
@@ -37,6 +47,9 @@ class VariableExprAST(ExprAST):
                 raise RuntimeError(f"Array {self.name} used without index")
             return var['value']
         raise RuntimeError(f"Unknown variable name: {self.name}")
+    
+    def __repr__(self) -> str:
+        return str(self.name)
 
 class BinaryExprAST(ExprAST):
     def __init__(self, op, lhs, rhs):
@@ -70,6 +83,29 @@ class BinaryExprAST(ExprAST):
         }[self.op]
         return res
 
+    def __repr__(self) -> str:
+        op = ""
+        if self.op == TOKEN_EQ:
+            op = "="
+        elif self.op == TOKEN_NE:
+            op = "!="
+        elif self.op == TOKEN_LT:
+            op = "<"
+        elif self.op == TOKEN_LE:
+            op = "<="
+        elif self.op == TOKEN_GT:
+            op = ">"
+        elif self.op == TOKEN_GE:
+            op = ">="
+        elif self.op == TOKEN_AND:
+            op = "и"
+        elif self.op == TOKEN_OR:
+            op = "или"
+        else:
+            op = chr(self.op)
+
+        return f"{self.lhs} {self.rhs} {op}"
+
 class IfExprAST(ExprAST):
     def __init__(self, cond, then_expr, else_expr):
         self.cond = cond
@@ -82,6 +118,9 @@ class IfExprAST(ExprAST):
         elif self.else_expr:
             return self.else_expr.evaluate()
         return 0.0
+    
+    def __repr__(self) -> str:
+        return f"{self.cond} {self.then_expr} {self.else_expr} если"
 
 class BlockExprAST(ExprAST):
     def __init__(self, expressions):
@@ -92,7 +131,12 @@ class BlockExprAST(ExprAST):
         for expr in self.expressions:
             result = expr.evaluate()
         return result
-    
+
+    def __repr__(self) -> str:
+        res = ""
+        for expr in self.expressions:
+            res += f"{expr} ;"
+        return res
 class ArrayExprAST(ExprAST):
     def __init__(self, name, index):
         self.name = name
@@ -109,6 +153,9 @@ class ArrayExprAST(ExprAST):
                     raise IndexError("Array index out of bounds")
         raise RuntimeError(f"Unknown array name: {self.name}")
     
+    def __repr__(self) -> str:
+        return f"{self.name} {self.index} ["
+    
 class ArrayDeclarationExprAST(ExprAST):
     def __init__(self, name, size):
         self.name = name
@@ -117,6 +164,9 @@ class ArrayDeclarationExprAST(ExprAST):
     def evaluate(self):
         named_values[self.name] = {'type': 'array', 'value': [0] * self.size}
         return 0.0
+    
+    def __repr__(self) -> str:
+        return f"{self.name} {self.size} array"
 
 class VariableAssignmentExprAST(ExprAST):
     def __init__(self, name, expr, index=None):
@@ -142,6 +192,11 @@ class VariableAssignmentExprAST(ExprAST):
             else:
                 raise RuntimeError(f"Unknown variable name: {self.name}")
         return val
+    
+    def __repr__(self):
+        # print(self.expr)
+        # print(self.name)
+        return f"{self.name} {self.index} {self.expr} [=" if self.index else f"{self.name} {self.expr} ="
 
 
 class VariableDeclarationExprAST(ExprAST):
@@ -154,6 +209,9 @@ class VariableDeclarationExprAST(ExprAST):
         named_values[self.name] = {'type': 'double', 'value': val}
         return val
 
+    def __repr__(self) -> str:
+        return f"{self.name} {self.expr} ="
+
 class WhileExprAST(ExprAST):
     def __init__(self, cond, body):
         self.cond = cond
@@ -164,6 +222,9 @@ class WhileExprAST(ExprAST):
         while self.cond.evaluate():
             result = self.body.evaluate()
         return result
+    
+    def __repr__(self):
+        return f"{self.cond} {self.body} нц_пока"
 
 class PrintExprAST(ExprAST):
     def __init__(self, expr):
@@ -174,11 +235,17 @@ class PrintExprAST(ExprAST):
         # print("result: ", result)
         print(result, end='')
         return result
+    
+    def __repr__(self) -> str:
+        return f"{self.expr} вывод"
 
 class EndlExprAST(ExprAST):
     def evaluate(self):
         print()
         return 0.0
+    
+    def __repr__(self) -> str:
+        return f"конецстр"
 
 class InputExprAST(ExprAST):
     def __init__(self, name):
@@ -190,6 +257,9 @@ class InputExprAST(ExprAST):
             named_values[self.name]['value'] = val
             return val
         raise RuntimeError(f"Unknown variable name: {self.name}")
+
+    def __repr__(self) -> str:
+        return f"{self.name} ввод"
 
 # Глобальные переменные
 named_values = {}
@@ -458,10 +528,16 @@ def handle_file(filename):
                 ast = parse_bool_decl()
             else:
                 ast = parse_expression()
-            if ast:
-                ast.evaluate()
-            else:
-                raise RuntimeError("Error parsing expression")
+            print(ast)
+            try:
+                if ast:
+                    ast.evaluate()
+                else:
+                    raise RuntimeError("Error parsing expression")
+            except Exception as e:
+                print("Error :", e)
+                print("AST: ", ast)
+                return
             # if cur_tok != ord(';'):
             #     raise RuntimeError("Expected ';' at the end of the expression")
 
